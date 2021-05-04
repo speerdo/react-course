@@ -40,7 +40,7 @@ const multiplier = {
   multiply() {
     return this.arr.map((num) => num * this.multi);
   },
-  // method multiply returna new array that has numbers mulitplied
+  // method multiply return a new array that has numbers mulitplied
 };
 
 console.log(multiplier.multiply());

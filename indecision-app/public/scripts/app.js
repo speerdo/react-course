@@ -1,95 +1,93 @@
 'use strict';
 
-console.log('app.js is running');
-
-// JSX syntax JavaScript XML
-
 var appData = {
   title: 'Indecision App',
   subtitle: 'Put your life in the hands of a computer',
-  options: ['One', 'Two']
+  options: []
 };
 
 function getSubtitle(sub) {
-  if (!sub) return;else return React.createElement(
+  if (!sub) return;
+  return React.createElement(
     'p',
     null,
     appData.subtitle
   );
 }
 
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    appData.title
-  ),
-  getSubtitle(appData.subtitle),
-  React.createElement(
-    'p',
-    null,
-    appData.options.length > 0 ? 'Here are your options' : 'No options'
-  ),
-  React.createElement(
-    'ol',
-    null,
-    React.createElement(
-      'li',
-      null,
-      'Item One'
-    ),
-    React.createElement(
-      'li',
-      null,
-      'Item two'
-    )
-  )
-);
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
 
-var count = 0;
-var addOne = function addOne() {
-  count++;
-  console.log(count);
+  var option = e.target.elements.option.value;
+
+  if (option) {
+    appData.options.push(option);
+    e.target.elements.option.value = '';
+    renderTemplate();
+  }
 };
 
-var subtractOne = function subtractOne() {
-  count--;
-  console.log(count);
+var onRemoveAll = function onRemoveAll() {
+  appData.options = [];
+  renderTemplate();
 };
 
-var reset = function reset() {
-  count = 0;
-  console.log(count);
+var onMakeDecision = function onMakeDecision() {
+  var randomNum = Math.floor(Math.random() * appData.options.length);
+  var option = appData.options[randomNum];
+  alert(option);
 };
-
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    'Count: ',
-    count
-  ),
-  React.createElement(
-    'button',
-    { onClick: addOne },
-    '+1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: subtractOne },
-    '-1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: reset },
-    'RESET'
-  )
-);
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+var renderTemplate = function renderTemplate() {
+  var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      appData.title
+    ),
+    getSubtitle(appData.subtitle),
+    React.createElement(
+      'p',
+      null,
+      appData.options.length > 0 ? 'Here are your options' : 'No options'
+    ),
+    React.createElement(
+      'button',
+      { onClick: onMakeDecision },
+      'What should I do?'
+    ),
+    React.createElement(
+      'button',
+      { onClick: onRemoveAll },
+      'Remove All'
+    ),
+    React.createElement(
+      'ol',
+      null,
+      appData.options.map(function (option) {
+        return React.createElement(
+          'li',
+          { key: option },
+          option
+        );
+      })
+    ),
+    React.createElement(
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'option' }),
+      React.createElement(
+        'button',
+        null,
+        'Add Option'
+      )
+    )
+  );
+  ReactDOM.render(template, appRoot);
+};
+
+renderTemplate();
