@@ -5,6 +5,7 @@ console.log(__dirname);
 module.exports = {
   entry: './src/app.js',
   mode: 'development',
+  devtool: 'eval-cheap-module-source-map',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
@@ -22,5 +23,8 @@ module.exports = {
         },
       },
     ],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
   },
 };
