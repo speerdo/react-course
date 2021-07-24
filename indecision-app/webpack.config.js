@@ -1,7 +1,5 @@
 const path = require('path');
 
-console.log(__dirname);
-
 module.exports = {
   entry: './src/app.js',
   mode: 'development',
@@ -21,6 +19,11 @@ module.exports = {
             presets: [['@babel/preset-env', { targets: 'defaults' }]],
           },
         },
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
