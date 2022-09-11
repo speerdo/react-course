@@ -1,8 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  // entry: './src/app.js',
-  entry: './src/playground/redux-expensify.js',
+  entry: './src/app.js',
+  // entry: './src/playground/hoc.js',
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   output: {
