@@ -13,25 +13,23 @@ const store = configureStore();
 
 // addExpense -> water bill
 const expenseOne = store.dispatch(
-  addExpense({ description: 'Water Bill', amount: 45 })
+  addExpense({ description: 'Water Bill', amount: 4500 })
 );
 
 // addExpense -> gas bill
 const expenseTwo = store.dispatch(
-  addExpense({ description: 'Gas Bill', amount: 55 })
+  addExpense({ description: 'Gas Bill', createdAt: 1000 })
 );
 
-// setTextFilter -> bill
-store.dispatch(setTextFilter('Bill'));
-
-// setTimeout(() => {
-//   store.dispatch(setTextFilter('rent'));
-// }, 3000);
+// addExpense -> water bill
+const expenseThree = store.dispatch(
+  addExpense({ description: 'Rent', amount: 109500 })
+);
 
 // getVisibleExpensees -> print visible ones to screen
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-// console.log(visibleExpenses);
+console.log(visibleExpenses);
 
 const jsx = (
   <Provider store={store}>
